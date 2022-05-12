@@ -1,11 +1,12 @@
-import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import size from 'rollup-plugin-size'
 import externalDeps from 'rollup-plugin-peer-deps-external'
-import resolve from 'rollup-plugin-node-resolve'
-import commonJS from 'rollup-plugin-commonjs'
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 import visualizer from 'rollup-plugin-visualizer'
 import replace from '@rollup/plugin-replace'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import babel from '@rollup/plugin-babel';
 
 const external = ['react']
 
@@ -22,7 +23,7 @@ export default [
       sourcemap: true,
     },
     external,
-    plugins: [resolve(), babel(), commonJS(), externalDeps()],
+    plugins: [resolve(), babel(), commonjs(), peerDepsExternal()],
   },
   {
     input: 'src/index.js',
@@ -32,7 +33,7 @@ export default [
       sourcemap: true,
     },
     external,
-    plugins: [resolve(), babel(), commonJS(), externalDeps()],
+    plugins: [resolve(), babel(), commonjs(), externalDeps()],
   },
   {
     input: 'src/index.js',
@@ -44,7 +45,7 @@ export default [
       globals,
     },
     external,
-    plugins: [resolve(), babel(), commonJS(), externalDeps()],
+    plugins: [resolve(), babel(), commonjs(), externalDeps()],
   },
   {
     input: 'src/index.js',
@@ -60,7 +61,7 @@ export default [
       replace({ 'process.env.NODE_ENV': `"production"`, delimiters: ['', ''] }),
       resolve(),
       babel(),
-      commonJS(),
+      commonjs(),
       externalDeps(),
       terser(),
       size(),
